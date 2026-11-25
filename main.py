@@ -12,13 +12,17 @@ import os
 WORD = "recalculating"
 
 
-def main() -> None:
-    word = WORD
+def validate_word(word: str) -> None:
     # Contract guard: exactly one word, 1-99 characters, no whitespace tricks.
     if not word or word.strip() != word or len(word.split()) != 1:
         raise SystemExit("entry word must be exactly one word")
     if not 1 <= len(word) <= 99:
         raise SystemExit("entry word must be 1-99 characters")
+
+
+def main() -> None:
+    word = WORD
+    validate_word(word)
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output"
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, "entry.txt")
